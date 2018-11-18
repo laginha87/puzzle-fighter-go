@@ -1,2 +1,2 @@
-build:
-	GOOS=js GOARCH=wasm go build -o public/main.wasm bundle.go
+start:
+	GOOS=js GOARCH=wasm realize start --build --run

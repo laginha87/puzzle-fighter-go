@@ -12,3 +12,5 @@
 *.out
 
 .vscode
+
+public/mains.wasm
