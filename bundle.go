@@ -5,7 +5,6 @@ package main
 import (
 	"syscall/js"
 
-	"github.com/laginha87/puzzle-fighter-go/client"
 	"github.com/laginha87/puzzle-fighter-go/logic"
 )
 
@@ -25,9 +24,8 @@ func main() {
 	// gl = canvasEl.Call("getContext", "webgl")
 	// gl.Call("clearColor", 0.0, 0.0, 0.0, 1.0)
 	// gl.Call("clear", gl.Get("COLOR_BUFFER_BIT"))
-	logger := client.NewLogger()
-	game := logic.NewGame(logger)
-	logger.Print("Starting Game Loop")
+	game := logic.NewGame()
+	println("Starting Game Loop")
 	game.Start()
 	<-make(chan int, 1)
 }

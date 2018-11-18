@@ -1,23 +1,18 @@
 package logic
 
-import (
-	"github.com/laginha87/puzzle-fighter-go/abstract"
-	"github.com/laginha87/puzzle-fighter-go/client"
-)
-
 // Game base class
 type Game struct {
-	logger abstract.Logger
+	board Board
 }
 
-func NewGame(logger abstract.Logger) Game {
+func NewGame() Game {
 	return Game{
-		logger: logger,
+		board: NewBoard(4, 20),
 	}
 }
 
 func (g *Game) Start() {
-	gl := client.NewGameLoop(10, func(delta float64) {
+	gl := NewGameLoop(10, func(delta float64) {
 		println(delta)
 	})
 
