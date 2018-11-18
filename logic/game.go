@@ -13,7 +13,7 @@ func NewGame() Game {
 
 func (g *Game) Start() {
 	gl := NewGameLoop(10, func(delta float64) {
-		println(delta)
+		println("Cens")
 	})
 
 	gl.Start()

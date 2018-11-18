@@ -1,0 +1,32 @@
+settings:
+  legacy:
+    force: false
+    interval: 0s
+schema:
+- name: /Users/filipecorreia/go/src/github.com/laginha87/puzzle-fighter-go
+  path: /Users/filipecorreia/go/src/github.com/laginha87/puzzle-fighter-go
+  commands:
+    build:
+      status: true
+      method: go build
+      args:
+        - -o
+        - public/main.wasm
+        - bundle.go
+    run:
+      status: true
+      args:
+        - main.go
+  watcher:
+    extensions:
+    - go
+    paths: [
+      "./logic",
+      "./main.go",
+      "./bundle.go"
+    ]
+    ignored_paths:
+    - .git
+    - .realize
+    - vendor
+  pattern: "n"
