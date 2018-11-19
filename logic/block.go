@@ -1,5 +1,5 @@
 package logic
 
-type Block = struct {
+type Block struct {
 	x, y, width, height int32
 }
