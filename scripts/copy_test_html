@@ -1,0 +1,17 @@
+#!/usr/bin/ruby
+require "erb"
+
+@files = Dir["**/*_html.go"].map do |f|
+    @wasm_name = File.basename(f.gsub("/","_")).split(".").first
+    `GOOS=js GOARCH=wasm go build -o public/#{@wasm_name}.wasm #{f}`
+    file_name ="#{@wasm_name}.html"
+    f = File.open("./public/#{file_name}", "w+")
+    f.write(ERB.new(File.read("./scripts/template.html.erb")).result(binding))
+    f.close
+    file_name
+end
+
+
+f = File.open("./public/test_index.html", "w+")
+f.write(ERB.new(File.read("./scripts/list_template.html.erb")).result(binding))
+

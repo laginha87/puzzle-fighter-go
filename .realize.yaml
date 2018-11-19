@@ -29,4 +29,11 @@ schema:
     - .git
     - .realize
     - vendor
+    - scripts
+    - public
+    - .vscode
+    scripts:
+    - type: after
+      command: ./scripts/copy_test_html
+      output: true
   pattern: "n"
