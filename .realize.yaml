@@ -23,7 +23,11 @@ schema:
     paths: [
       "./logic",
       "./main.go",
-      "./bundle.go"
+      "./bundle.go",
+      "./block",
+      "./html",
+      "./html_tests",
+      "./html_tests/*"
     ]
     ignored_paths:
     - .git
