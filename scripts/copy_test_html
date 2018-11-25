@@ -1,9 +1,10 @@
 #!/usr/bin/ruby
 require "erb"
 
-@files = Dir["**/*_html.go"].map do |f|
+errors = []
+@files = Dir["html_tests/*/*html.go"].map do |f|
     @wasm_name = File.basename(f.gsub("/","_")).split(".").first
-    `GOOS=js GOARCH=wasm go build -o public/#{@wasm_name}.wasm #{f}`
+    errors.push `GOOS=js GOARCH=wasm go build -o public/#{@wasm_name}.wasm #{f}`
     file_name ="#{@wasm_name}.html"
     f = File.open("./public/#{file_name}", "w+")
     f.write(ERB.new(File.read("./scripts/template.html.erb")).result(binding))
@@ -11,6 +12,7 @@ require "erb"
     file_name
 end
 
+raise Exception.new(errors.join("\n")) if errors.length > 0
 
 f = File.open("./public/test_index.html", "w+")
 f.write(ERB.new(File.read("./scripts/list_template.html.erb")).result(binding))
