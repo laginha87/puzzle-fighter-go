@@ -7,31 +7,31 @@ import (
 
 type Renderer struct {
 	logic  *Logic
-	blocks []*block.Renderer
-	max    uint8
+	blocks map[*block.Logic]*block.Renderer
+	origin []int16
 }
 
-func NewRenderer(logic *Logic) *Renderer {
-	renderer := &Renderer{logic: logic, blocks: make([]*block.Renderer, 200), max: 0}
+func NewRenderer(logic *Logic, origin []int16) *Renderer {
+	renderer := &Renderer{logic: logic, blocks: make(map[*block.Logic]*block.Renderer), origin: origin}
 	logic.On(Events.BLOCK_INSERTED, renderer.onInsert)
 	return renderer
 }
 
 func (r *Renderer) Render(c html.Context2D) {
-	for index := uint8(0); index < r.max; index++ {
-		r.blocks[index].Render(c)
+	c.Translate(r.origin[0], r.origin[1])
+	for _, renderer := range r.blocks {
+		renderer.Render(c)
 	}
+	c.Translate(-r.origin[0], -r.origin[1])
 }
 
 func (r *Renderer) onInsert(payload interface{}) {
 	logic := payload.(*block.Logic)
 	renderer := block.NewRenderer(logic)
-	r.blocks[r.max] = renderer
-	r.max++
+	r.blocks[logic] = renderer
 }
 
 func (r *Renderer) onRemove(payload interface{}) {
 	logic := payload.(*block.Logic)
-	r.blocks[r.max] = renderer
-	r.max++
+	r.blocks[logic] = nil
 }

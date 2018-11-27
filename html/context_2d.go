@@ -31,3 +31,7 @@ func (c Context2D) FillColor(color string) {
 func (c Context2D) FillStyle(color string) {
 	c.context.Set("fillStyle", color)
 }
+
+func (c Context2D) Translate(x, y int16) {
+	c.context.Call("translate", x, y)
+}
