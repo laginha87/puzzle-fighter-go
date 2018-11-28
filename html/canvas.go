@@ -12,13 +12,13 @@ type Canvas struct {
 
 func NewCanvas() Canvas {
 	return Canvas{
-		element: document.getElementById("gocanvas"),
+		element: Document.getElementById("gocanvas"),
 	}
 }
 
 func (c Canvas) Init() {
-	width := document.doc.Get("body").Get("clientWidth").Int()
-	height := document.doc.Get("body").Get("clientHeight").Int()
+	width := Document.doc.Get("body").Get("clientWidth").Int()
+	height := Document.doc.Get("body").Get("clientHeight").Int()
 	c.element.Set("width", width)
 	c.element.Set("height", height)
 }

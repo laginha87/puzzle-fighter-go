@@ -4,18 +4,30 @@ package html
 
 import "syscall/js"
 
-type Document struct {
+type HTMLDocument struct {
 	doc js.Value
 }
 
-func NewDocument(el js.Value) Document {
-	return Document{
+func NewDocument(el js.Value) HTMLDocument {
+	return HTMLDocument{
 		doc: el,
 	}
 }
 
-var document = NewDocument(js.Global().Get("document"))
+var Document = NewDocument(js.Global().Get("document"))
 
-func (d Document) getElementById(id string) js.Value {
+func (d HTMLDocument) getElementById(id string) js.Value {
 	return d.doc.Call("getElementById", id)
+}
+
+func (d HTMLDocument) OnKeyDown(callback func(code string)) {
+	c := func(ev []js.Value) {
+		event := ev[0]
+		callback(event.Get("code").String())
+	}
+	d.doc.Set("onkeydown", js.NewCallback(c))
+}
+
+func (d HTMLDocument) Log(o interface{}) {
+	d.doc.Get("console").Call("log", o)
 }
