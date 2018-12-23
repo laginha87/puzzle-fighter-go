@@ -6,6 +6,7 @@ import (
 	"github.com/laginha87/puzzle-fighter-go/block"
 	"github.com/laginha87/puzzle-fighter-go/board"
 	"github.com/laginha87/puzzle-fighter-go/html"
+	"github.com/laginha87/puzzle-fighter-go/logic"
 )
 
 func main() {
@@ -20,5 +21,14 @@ func main() {
 			bl.Insert(&bb)
 		}
 	}
+
 	br.Render(context)
+
+	gl := logic.NewGameLoop(10, func(delta float64) {
+		context.Clear()
+		br.Render(context)
+	})
+
+	gl.Start()
+	<-make(chan int, 1)
 }

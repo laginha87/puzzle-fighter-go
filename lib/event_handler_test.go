@@ -10,7 +10,6 @@ func TestEventHandler(t *testing.T) {
 	handler := NewEventHandler(2)
 	called := false
 	callback := func(a interface{}) {
-		println(a)
 		called = true
 	}
 	handler.On(1, callback)

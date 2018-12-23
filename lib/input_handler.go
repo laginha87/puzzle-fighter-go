@@ -9,8 +9,8 @@ type InputHandler struct {
 	callbacks map[string][]*func()
 }
 
-func NewInputHandler() InputHandler {
-	ih := InputHandler{
+func NewInputHandler() *InputHandler {
+	ih := &InputHandler{
 		actions:   make([]*func(), 0),
 		callbacks: make(map[string][]*func()),
 	}
@@ -28,11 +28,9 @@ func (ih *InputHandler) On(code string, f func()) {
 
 func (ih *InputHandler) onKeyDown(code string) {
 	callbacks, present := ih.callbacks[code]
-	println(len(ih.actions))
 	if present {
 		ih.actions = append(ih.actions, callbacks...)
 	}
-	println(len(ih.actions))
 }
 
 func (ih *InputHandler) CheckInputs() {

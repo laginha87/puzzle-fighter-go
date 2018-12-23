@@ -12,9 +12,9 @@ errors = []
     file_name
 end
 
-errors.reject!(&:empty?)
-
-raise Exception.new(errors.join("\n")) if errors.length > 0
+unless errors.reject(&:empty?).empty?
+    raise Exception.new(errors.join("\n"))
+end
 
 f = File.open("./public/test_index.html", "w+")
 f.write(ERB.new(File.read("./scripts/list_template.html.erb")).result(binding))
