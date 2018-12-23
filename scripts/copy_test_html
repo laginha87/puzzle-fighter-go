@@ -3,9 +3,10 @@ require "erb"
 
 errors = []
 @files = Dir["html_tests/*/*html.go"].map do |f|
-    @wasm_name = File.basename(f.gsub("/","_")).split(".").first
-    errors.push `GOOS=js GOARCH=wasm go build -o public/#{@wasm_name}.wasm #{f}`
-    file_name ="#{@wasm_name}.html"
+    base_name = File.basename(f.gsub("/","_")).split(".").first
+    @wasm_name = "#{Time.now.to_i.to_s}_#{base_name}.wasm"
+    errors.push `GOOS=js GOARCH=wasm go build -o public/#{@wasm_name} #{f}`
+    file_name ="#{base_name}.html"
     f = File.open("./public/#{file_name}", "w+")
     f.write(ERB.new(File.read("./scripts/template.html.erb")).result(binding))
     f.close

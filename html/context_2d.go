@@ -8,6 +8,8 @@ import (
 
 type Context2D struct {
 	context js.Value
+	width   int
+	height  int
 }
 
 func NewContext2D(el js.Value, width, height int) Context2D {
